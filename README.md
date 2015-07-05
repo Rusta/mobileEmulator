@@ -5,7 +5,7 @@ Navigate to www.{your-website-address}/mobileEmulator to see it in action.
 
 Currently supports the following emulation modes:
 
-* iPhone 5 - Potrait
+* iPhone 5 - Portrait
 * iPhone 5 - Landscape
-* iPad Mini - Potrait
+* iPad Mini - Portrait
 * iPad Mini - Landscape
