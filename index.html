@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <title>Mobile Emulator</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    <meta name="description" content="Mobile Emulator"/>
+    <meta name="keywords" content=""/>
+    <style>    
+
+      .phone_area {
+        margin: 0 auto 0 auto;
+        text-align: center;
+        display: none;
+        position: relative;
+        z-index: 1;
+      }
+
+      .ipad_mini_emulator {
+        background-image: url("iPad_mini_portrait.png");
+        width: 1070px;
+        height: 1489px;
+        margin: auto;
+      }
+      .ipad_mini_emulator .frame {
+        width: 768px;
+        height: 1024px;
+        margin: 232px 0 0 -0px;
+      }
+
+      .ipad_mini_emulator_landscape {
+        background-image: url("iPad_mini_landscape.png");
+        width: 1489px;
+        height: 1070px;
+        margin: auto;
+      }
+      .ipad_mini_emulator_landscape .frame {
+        width: 1024px;
+        height: 768px;
+        margin: 151px 0 0 -3px;
+      }
+
+      .iphone_5_emulator {
+        background-image: url("iPhone_5_portrait.png");
+        width: 586px;
+        height: 1001px;
+        margin: auto;
+      }
+      .iphone_5_emulator .frame {
+        width: 320px;
+        height: 568px;
+        margin: 217px 0 0 3px;
+      }
+
+      .iphone_5_emulator_landscape {
+        background-image: url("iPhone_5_landscape.png");
+        width: 1001px;
+        height: 586px;
+        margin: auto;
+      }
+      .iphone_5_emulator_landscape .frame {
+        width: 568px;
+        height: 320px;
+        margin: 131px 0 0 -1px;
+      }
+
+      .frame {
+        display: inline-block;
+        -webkit-overflow-scrolling: touch;
+        overflow: hidden;
+      }
+
+      iframe {
+        overflow-y: hidden;
+      }
+      iframe::-webkit-scrollbar {
+        display: none;
+      }
+
+      .emulator-toggle-button-container {
+        text-align: center;
+        margin-top: 15px;
+      }
+      .emulator-toggle-button:active, .emulator-toggle-button:focus, .emulator-toggle-button:active:focus
+      {
+        outline: none;
+      }
+      .emulator-toggle-button {
+        box-shadow: none;
+        text-shadow: none;        
+        display: inline-block;
+        padding: 4px 12px;
+        margin-bottom: 0;
+        margin-right: 10px;
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        color: #333333;
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+        background-color: #ffffff;
+        border-color: #ffffff #ffffff #d9d9d9;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+        border: 1px solid #e3e3e3;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+      }
+
+      .emulator-toggle-button.emulator-toggle-button-active {
+        color: #ffffff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        background-color: #56a5b0;
+        border-color: #56a5b0 #56a5b0 #3b767e;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="emulator-toggle-button-container">
+      <button type="button" class="emulator-toggle-button emulator-toggle-button-active" data-emulate="iphone_5_emulator">iPhone</button>
+      <button type="button" class="emulator-toggle-button" data-emulate="iphone_5_emulator_landscape">iPhone - Landscape</button>  
+      <button type="button" class="emulator-toggle-button" data-emulate="ipad_mini_emulator">iPad</button>
+      <button type="button" class="emulator-toggle-button" data-emulate="ipad_mini_emulator_landscape">iPad - Landscape</button>
+    </div>
+
+    <div class="phone_area" style="display: block;">
+      <div id="emulator" class="iphone_5_emulator">                         
+        <iframe class="frame" src="../" frameborder="0" style="background-color: #fff;">                         
+        </iframe> 
+      </div>  
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+      // apply emulation mode toggle functionaity to buttons
+      var emulatorToggleButtons = document.getElementsByClassName("emulator-toggle-button");
+      for (i = 0; i < emulatorToggleButtons.length; i++) {
+        emulatorToggleButtons[i].addEventListener("click", toggleDisplay);
+      }
+      function toggleDisplay() {
+        // get the new emulation mode
+        var emulationMode = this.getAttribute("data-emulate");
+        // set the main emulation container with the appropriate class
+        document.getElementById("emulator").className = emulationMode;  
+        // UPDATE THE SET EMULATION BUTTONS      
+        // remove active class from all buttons
+        for (i = 0; i < emulatorToggleButtons.length; i++) {
+          emulatorToggleButtons[i].className =
+             emulatorToggleButtons[i].className.replace
+                ( /(?:^|\s)emulator-toggle-button-active(?!\S)/g , '' )          
+        }
+        // add active class to the selected button
+        this.className += " emulator-toggle-button-active";
+      }
+
+    </script>
+
+  </body>
+</html>  
